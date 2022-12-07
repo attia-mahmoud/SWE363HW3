@@ -37,7 +37,6 @@ function showComments(recipeId) {
 function seeComments(recipeId) {
   // Show the comments for the given recipe
 
-  console.log("CLINED");
   showComments(recipeId);
 }
 

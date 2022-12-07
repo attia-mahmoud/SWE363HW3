@@ -40,7 +40,6 @@ app.get("/recipes/:recipe_id", (req, res) => {
     } else if (!recipe) {
       res.status(404).send("Recipe not found.");
     } else {
-      console.log("HOLAAA" + recipe.title);
       res.render("recipe.njk", { recipe });
     }
   });
@@ -54,7 +53,6 @@ app.get("/recipes/:recipe_id/comments", (req, res) => {
         .status(500)
         .send("Error occurred while getting comments from the database.");
     } else {
-      console.log("COMMENTS HERE" + comments);
       res.json(comments);
     }
   });

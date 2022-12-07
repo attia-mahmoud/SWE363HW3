@@ -51,7 +51,6 @@ function getRecipeDetail(recipe_id, callback) {
 
 // Get comments for a specific recipe from the database
 function getComments(recipe_id, callback) {
-  console.log("GETTING COMMENTS");
   db.all(
     "SELECT * FROM comments WHERE recipe_id = ?",
     [recipe_id],

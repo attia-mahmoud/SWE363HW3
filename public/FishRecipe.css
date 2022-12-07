@@ -10,7 +10,7 @@
 body {
   font-family: "Segoe UI", Arial, sans-serif;
   padding-inline: 1rem;
-  background-image: url("./images/silverware.jpg");
+  background-image: url("./silverware.jpg");
   background-repeat: repeat;
   display: flex;
   flex-direction: column;

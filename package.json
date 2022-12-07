@@ -1,0 +1,25 @@
+{
+  "name": "recipes_hw",
+  "version": "1.0.0",
+  "description": "recipes hw",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "serve_dev": "nodemon -e js,njk server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/attia-mahmoud/SWE363HW3.git"
+  },
+  "author": "Mahmoud Attia",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "nunjucks": "^3.2.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}

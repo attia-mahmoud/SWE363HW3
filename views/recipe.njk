@@ -1,0 +1,116 @@
+{% extends 'base.njk' %}
+{% block content %}
+    <div class="header">{{ recipe.title }}</div>
+    <div class="header subheader">{{ recipe.subtitle }}</div>
+    <div style="text-align: center">
+      <p>
+        <strong>Makes</strong> {{ recipe.make }} <strong>Cooks</strong> In {{ recipe.cook_time }} <strong>Difficulty</strong> {{ recipe.difficulty }}
+      </p>
+      <hr />
+    </div>
+    <div class="header subheader">INGREDIENTS</div>
+    <div class="">
+      <div id="ingredients">
+        <img src="/{{ recipe.image }}" class="image_round" />
+        <ul>
+          <li>
+            {{ recipe.item }}
+          </li>
+        </ul>
+      </div>
+      <hr />
+    </div>
+    <div class="header subheader">METHOD</div>
+    <div class="">
+      <div id="method">
+        <ol>
+          <li>
+            {{ recipe.step }}
+          </li>
+        </ol>
+      </div>
+      <hr />
+    </div>
+    <div class="header subheader">User Comments</div>
+    <div id="comments">
+      <fieldset>
+        <legend>Enter a comment:</legend>
+        <label for="username"><b>Name:</b> </label>
+        <br />
+        <input type="text" name="name" id="username" />
+        <br /><br />
+        <label for="comment"><b>Comment:</b> </label>
+        <br />
+        <textarea
+          name="comment"
+          id="comment"
+          placeholder="Enter your comment here..."
+          rows="4"
+          cols="40"
+        ></textarea>
+        <br />
+        <a href="mailto:xxx@domain.com">
+          <img src="./images/PlusSign.jpg" width="50" alt="plus sign" />
+        </a>
+      </fieldset>
+
+      <div class="comments_display">
+        <h4 class="miniheader">All comments:</h4>
+
+        <blockquote>
+          <p>This is a very fun recipe to follow.</p>
+          <br />
+          <p>- Ahmed Z.</p>
+        </blockquote>
+        <br />
+        <blockquote>
+          <p>This is my favorite recipe. I enjoy it.</p>
+          <br />
+          <p>- Karim K.</p>
+        </blockquote>
+      </div>
+      <hr />
+    </div>
+
+    <div class="header subheader">Sign-up to receive new recipes</div>
+    <div class="">
+      <fieldset class="signup_fieldset">
+        <legend>Personal Information</legend>
+        <label for="name"><strong>Name:</strong> </label>
+        <input type="text" name="name" id="name" />
+        <br /><br />
+        <label for="comment"><strong>Email:</strong> </label>
+        <input
+          name="email"
+          id="email"
+          type="email"
+          placeholder="xxx@domain.com"
+        />
+      </fieldset>
+      <br />
+      <fieldset class="signup_fieldset">
+        <legend>Types of recipes</legend>
+        <label for="breakfast">Breakfast</label>
+        <input
+          type="radio"
+          id="breakfast"
+          name="fav_language"
+          value="breakfast"
+        />
+        <label for="lunch">Lunch</label>
+        <input type="radio" id="lunch" name="fav_language" value="lunch" />
+        <label for="dinner">Dinner</label>
+        <input type="radio" id="dinner" name="fav_language" value="dinner" />
+      </fieldset>
+      <br />
+
+      <button class="">Sign Up</button>
+
+      <hr />
+    </div>
+
+    <div class="header subheader">LINKS</div>
+    <a href="https://www.google.com/search?q=fish+fingers+recipe"
+      >Search for other fish fingers recipes</a
+    >
+{% endblock content %}

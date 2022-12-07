@@ -1,62 +1,84 @@
-const sqlite3 = require("sqlite3");
-const sqlite = require("sqlite");
+const db = require("../db");
 
-const getDbConnection = async () => {
-  return await sqlite.open({
-    filename: "./recipes_store.db3",
-    driver: sqlite3.Database,
+// Get all recipes from the database
+function getAllRecipes(callback) {
+  db.all("SELECT * FROM recipes", (err, rows) => {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, rows);
+    }
   });
-};
-
-async function getAllRecipes() {
-  const db = await getDbConnection();
-  const rows = await db.all("SELECT * FROM recipes");
-  await db.close();
-  console.log(rows);
-  return rows;
 }
 
-async function getRecipeDetail(recipe_id) {
-  const db = await getDbConnection();
+// Get details for a specific recipe from the database
+function getRecipeDetail(recipe_id, callback) {
+  db.get("SELECT * FROM recipes WHERE id = ?", [recipe_id], (err, recipe) => {
+    if (err) {
+      callback(err);
+    } else if (!recipe) {
+      callback(null, null);
+    } else {
+      // Get ingredients for the recipe
+      db.all(
+        "SELECT item FROM ingredients WHERE recipe_id = ?",
+        [recipe_id],
+        (err, ingredients) => {
+          if (err) {
+            callback(err);
+          } else {
+            recipe.ingredients = ingredients;
 
-  let details = {};
-
-  const rows1 = await db.all(`SELECT * FROM recipes WHERE id = ${recipe_id}`);
-  rows1.forEach((row) => {
-    details = { ...details, ...row };
+            // Get method steps for the recipe
+            db.all(
+              "SELECT step FROM method WHERE recipe_id = ?",
+              [recipe_id],
+              (err, method) => {
+                if (err) {
+                  callback(err);
+                } else {
+                  recipe.method = method;
+                  callback(null, recipe);
+                }
+              }
+            );
+          }
+        }
+      );
+    }
   });
+}
 
-  const rows2 = await db.all(
-    `SELECT * FROM ingredients WHERE id = ${recipe_id}`
+// Get comments for a specific recipe from the database
+function getComments(recipe_id, callback) {
+  console.log("GETTING COMMENTS");
+  db.all(
+    "SELECT * FROM comments WHERE recipe_id = ?",
+    [recipe_id],
+    (err, comments) => {
+      if (err) {
+        callback(err);
+      } else {
+        callback(null, comments);
+      }
+    }
   );
-  rows2.forEach((row) => {
-    details = { ...details, ...row };
-  });
-  const rows3 = await db.all(`SELECT * FROM method WHERE id = ${recipe_id}`);
-  rows3.forEach((row) => {
-    details = { ...details, ...row };
-  });
-  await db.close();
-  console.log(details);
-  return details;
 }
 
-async function getComments(recipe_id) {
-  const db = await getDbConnection();
-  const rows = await db.all(`SELECT * FROM comments WHERE id = ${recipe_id}`);
-  await db.close();
-  console.log(rows);
-  return rows;
-}
-
-const addComment = async (recipe_id, comment) => {
-  const db = await getDbConnection();
-  const meta = await db.run(
-    `INSERT INTO comments (author, comment, recipe_id) VALUES ('${comment.author}', '${comment.text}', '${recipe_id}')`
+// Add a comment for a specific recipe to the database
+function addComment(recipe_id, comment, callback) {
+  db.run(
+    "INSERT INTO comments (recipe_id, author, comment) VALUES (?, ?, ?)",
+    [recipe_id, comment.author, comment.text],
+    (err, metadata) => {
+      if (err) {
+        callback(err);
+      } else {
+        callback(null, metadata);
+      }
+    }
   );
-  await db.close();
-  return meta;
-};
+}
 
 module.exports = {
   getAllRecipes,

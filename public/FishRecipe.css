@@ -71,7 +71,7 @@ body {
 /* ////////////////////// */
 
 ul > li {
-  list-style-image: url("./images/fish_icon_24.png");
+  list-style-image: url("./fish_icon_24.png");
 }
 
 input {

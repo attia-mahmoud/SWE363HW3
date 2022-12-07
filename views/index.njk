@@ -4,8 +4,7 @@
       <div id="homepage_recipes">
         {% for recipe in recipes %}
             <a href="/recipes/{{ recipe.id }}"
-                ><img class="image_round" src="./{{ recipe.image }}"
-            /></a>
+                ><img class="image_round" src="./{{ recipe.image }}"  alt="{{ recipe.title }}" /></a>
         {% endfor %}
     </div>
 {% endblock %}

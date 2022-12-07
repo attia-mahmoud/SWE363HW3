@@ -13,9 +13,9 @@
       <div id="ingredients">
         <img src="/{{ recipe.image }}" class="image_round" />
         <ul>
-          <li>
-            {{ recipe.item }}
-          </li>
+          {% for ingredient in recipe.ingredients %}
+            <li>{{ ingredient.item }}</li>
+          {% endfor %}
         </ul>
       </div>
       <hr />
@@ -24,16 +24,16 @@
     <div class="">
       <div id="method">
         <ol>
-          <li>
-            {{ recipe.step }}
-          </li>
+          {% for step in recipe.method %}
+            <li>{{ step.step }}</li>
+          {% endfor %}
         </ol>
       </div>
       <hr />
     </div>
     <div class="header subheader">User Comments</div>
     <div id="comments">
-      <fieldset>
+      <fieldset id="form" style="display: none">
         <legend>Enter a comment:</legend>
         <label for="username"><b>Name:</b> </label>
         <br />
@@ -49,25 +49,11 @@
           cols="40"
         ></textarea>
         <br />
-        <a href="mailto:xxx@domain.com">
-          <img src="./images/PlusSign.jpg" width="50" alt="plus sign" />
-        </a>
+          <img src="/PlusSign.jpg" width="50" alt="plus sign"  onclick='sendComment({{ recipe.id }})' style='cursor: pointer;'/>
       </fieldset>
 
-      <div class="comments_display">
-        <h4 class="miniheader">All comments:</h4>
-
-        <blockquote>
-          <p>This is a very fun recipe to follow.</p>
-          <br />
-          <p>- Ahmed Z.</p>
-        </blockquote>
-        <br />
-        <blockquote>
-          <p>This is my favorite recipe. I enjoy it.</p>
-          <br />
-          <p>- Karim K.</p>
-        </blockquote>
+      <button onclick="seeComments({{ recipe.id }})">See Comments</button>
+      <div id="comments-container" style="display: none">
       </div>
       <hr />
     </div>
